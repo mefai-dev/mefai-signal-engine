@@ -1,0 +1,217 @@
+# Mefai Signal Engine Configuration
+
+server:
+  host: "0.0.0.0"
+  port: 8300
+  workers: 1
+
+binance:
+  base_url: "https://fapi.binance.com"
+  spot_url: "https://api.binance.com"
+  ws_url: "wss://fstream.binance.com/ws"
+  kline_limit: 500
+  rate_limit_pause: 0.1
+
+symbols:
+  majors:
+    - "BTCUSDT"
+    - "ETHUSDT"
+    - "BNBUSDT"
+  alts:
+    - "SOLUSDT"
+    - "AVAXUSDT"
+    - "LINKUSDT"
+    - "DOTUSDT"
+    - "ADAUSDT"
+    - "MATICUSDT"
+  memes:
+    - "1000PEPEUSDT"
+    - "DOGEUSDT"
+    - "1000SHIBUSDT"
+    - "1000FLOKIUSDT"
+    - "1000BONKUSDT"
+
+timeframes:
+  - "1m"
+  - "5m"
+  - "15m"
+  - "1h"
+  - "4h"
+
+models:
+  save_dir: "models/"
+  retrain_interval_hours: 6
+  min_training_samples: 200
+  lookback_periods: 500
+  prediction_horizon: 12  # candles ahead
+  hyperparameters:
+    majors:
+      n_estimators: 200
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      min_child_weight: 5
+      gamma: 0.1
+      reg_alpha: 0.1
+      reg_lambda: 1.0
+    alts:
+      n_estimators: 200
+      max_depth: 7
+      learning_rate: 0.08
+      subsample: 0.75
+      colsample_bytree: 0.75
+      min_child_weight: 3
+      gamma: 0.05
+      reg_alpha: 0.05
+      reg_lambda: 0.8
+    memes:
+      n_estimators: 200
+      max_depth: 8
+      learning_rate: 0.1
+      subsample: 0.7
+      colsample_bytree: 0.7
+      min_child_weight: 2
+      gamma: 0.02
+      reg_alpha: 0.02
+      reg_lambda: 0.5
+
+signal_weights:
+  technical: 0.30
+  correlation: 0.10
+  onchain: 0.15
+  sentiment: 0.10
+  ml_prediction: 0.35
+
+signal_thresholds:
+  strong_long: 60
+  long: 30
+  neutral_upper: 15
+  neutral_lower: -15
+  short: -30
+  strong_short: -60
+
+risk:
+  default_stop_loss_pct: 1.5
+  default_take_profit_pct: 3.0
+  max_risk_per_trade_pct: 2.0
+  atr_stop_multiplier: 1.5
+  atr_tp_multiplier: 3.0
+
+scheduler:
+  price_update_seconds: 60
+  signal_generation_seconds: 300
+  retrain_hours: 6
+  evaluation_hours: 24
+
+sentiment:
+  feeds:
+    - url: "https://www.coindesk.com/arc/outboundfeeds/rss/"
+      weight: 1.0
+      name: "CoinDesk"
+    - url: "https://cointelegraph.com/rss"
+      weight: 1.0
+      name: "CoinTelegraph"
+    - url: "https://www.theblock.co/rss.xml"
+      weight: 0.9
+      name: "TheBlock"
+    - url: "https://decrypt.co/feed"
+      weight: 0.8
+      name: "Decrypt"
+    - url: "https://bitcoinmagazine.com/.rss/full/"
+      weight: 0.7
+      name: "BitcoinMagazine"
+    - url: "https://cryptoslate.com/feed/"
+      weight: 0.7
+      name: "CryptoSlate"
+    - url: "https://beincrypto.com/feed/"
+      weight: 0.6
+      name: "BeInCrypto"
+    - url: "https://cryptopotato.com/feed/"
+      weight: 0.6
+      name: "CryptoPotato"
+    - url: "https://u.today/rss"
+      weight: 0.5
+      name: "UToday"
+    - url: "https://ambcrypto.com/feed/"
+      weight: 0.5
+      name: "AMBCrypto"
+    - url: "https://www.newsbtc.com/feed/"
+      weight: 0.5
+      name: "NewsBTC"
+    - url: "https://bitcoinist.com/feed/"
+      weight: 0.5
+      name: "Bitcoinist"
+  update_interval_seconds: 300
+  max_articles_per_feed: 20
+  article_max_age_hours: 24
+
+providers:
+  glassnode:
+    api_key: ""  # Get your key at https://studio.glassnode.com
+    enabled: true
+    rate_limit: 10  # requests per minute
+    cache_ttl: 300
+  santiment:
+    api_key: ""  # Get your key at https://app.santiment.net
+    enabled: true
+    rate_limit: 20
+    cache_ttl: 300
+  cryptoquant:
+    api_key: ""  # Get your key at https://cryptoquant.com
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 300
+  nansen:
+    api_key: ""  # Get your key at https://app.nansen.ai
+    enabled: true
+    rate_limit: 30
+    cache_ttl: 300
+  kaiko:
+    api_key: ""  # Get your key at https://www.kaiko.com
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 60
+  coinmetrics:
+    api_key: ""  # Get your key at https://coinmetrics.io
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 300
+  messari:
+    api_key: ""  # Get your key at https://messari.io
+    enabled: true
+    rate_limit: 20
+    cache_ttl: 600
+  lunarcrush:
+    api_key: ""  # Get your key at https://lunarcrush.com
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 300
+  token_terminal:
+    api_key: ""  # Get your key at https://tokenterminal.com
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 600
+  intotheblock:
+    api_key: ""  # Get your key at https://app.intotheblock.com
+    enabled: true
+    rate_limit: 20
+    cache_ttl: 300
+  artemis:
+    api_key: ""  # Get your key at https://app.artemis.xyz
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 600
+  # Free providers (no API key needed)
+  defillama:
+    enabled: true
+    rate_limit: 30
+    cache_ttl: 300
+  fear_greed:
+    enabled: true
+    rate_limit: 60
+    cache_ttl: 300
+  coingecko:
+    enabled: true
+    rate_limit: 10
+    cache_ttl: 60
