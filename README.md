@@ -3,7 +3,7 @@
 [![CI](https://github.com/mefai-dev/mefai-signal-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/mefai-dev/mefai-signal-engine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 
-A production-grade trading signal engine that combines machine learning, on-chain analytics, and multi-source data fusion to generate actionable trading signals for cryptocurrency markets.
+A production grade trading signal engine that combines machine learning, on chain analytics, and multi source data fusion to generate actionable trading signals for cryptocurrency markets.
 
 ---
 
@@ -21,7 +21,7 @@ The engine is built on three pillars of intelligence, each contributing to the f
                         +--------+---------+
                                  |
                     +------------+------------+
-                    |    Meta-Ensemble        |
+                    |    Meta Ensemble        |
                     |    Dynamic Weights      |
                     |    Platt Calibration    |
                     |    Disagreement Check   |
@@ -47,7 +47,7 @@ The engine is built on three pillars of intelligence, each contributing to the f
           |                            |    | 4 States:          |
           |  Technical (30-45%)        |    |  Bull / Bear /     |
           |  Correlation (10-15%)      |    |  Sideways / Volatile|
-          |  On-Chain (15-25%)         |    +--------------------+
+          |  On Chain (15-25%)         |    +--------------------+
           |  Sentiment (10-15%)        |
           |  ML Predictions (35%)      |    +--------------------+
           +-------------+--------------+    | Monte Carlo Risk   |
@@ -56,7 +56,7 @@ The engine is built on three pillars of intelligence, each contributing to the f
           |    Data Pipeline           |    +--------------------+
           |                            |
           |  Binance (klines, futures) |    +--------------------+
-          |  12 Premium Providers      |    | Walk-Forward       |
+          |  12 Premium Providers      |    | Walk Forward       |
           |  3 Free Providers          |    | Optimization       |
           |  12+ RSS News Feeds        |    | Overfitting Check  |
           +----------------------------+    +--------------------+
@@ -71,7 +71,7 @@ Three specialized gradient-boosted tree models, each tuned for a different marke
 | Model | Symbols | Estimators | Movement Threshold | Key Features |
 |-------|---------|------------|-------------------|--------------|
 | **Majors** | BTC, ETH, BNB | 200 | 0.5% | Conservative, lower learning rate (0.03), deeper trees (max_depth=8) |
-| **Alts** | SOL, AVAX, LINK, DOT, MATIC, NEAR, ARB, OP | 200 | 0.8% | Momentum-heavy, balanced depth (7), moderate learning rate (0.05) |
+| **Alts** | SOL, AVAX, LINK, DOT, MATIC, NEAR, ARB, OP | 200 | 0.8% | Momentum heavy, balanced depth (7), moderate learning rate (0.05) |
 | **Memes** | PEPE, DOGE, SHIB, FLOKI, BONK, WIF | 200 | 1.5% | Volume/sentiment weighted, shallow trees (6), higher learning rate (0.08), heavy subsampling |
 
 **Feature Engine** extracts 15+ technical indicators from raw OHLCV data:
@@ -83,7 +83,7 @@ Three specialized gradient-boosted tree models, each tuned for a different marke
 - Structure: Order Block detection (swing high/low), Fair Value Gap detection (3-candle imbalance)
 - Derived: Price position within BB, EMA crossover signals, multi-timeframe RSI divergence
 
-Models auto-retrain every 6 hours on fresh market data.
+Models auto retrain every 6 hours on fresh market data.
 
 ---
 
@@ -94,10 +94,10 @@ Five independent scoring layers, each producing a score from -100 to +100:
 | Layer | Weight | Data Source | What It Measures |
 |-------|--------|-------------|-----------------|
 | Technical Analysis | 30-45% | Price/Volume | Trend direction, momentum, support/resistance, pattern recognition |
-| Correlation Analysis | 10-15% | Multi-asset | BTC beta, sector correlation, cross-pair divergence, decorrelation signals |
-| On-Chain Metrics | 15-25% | Binance + Providers | Funding rate, OI change, long/short ratio, liquidation levels, exchange flows |
+| Correlation Analysis | 10-15% | Multi asset | BTC beta, sector correlation, cross pair divergence, decorrelation signals |
+| On Chain Metrics | 15-25% | Binance + Providers | Funding rate, OI change, long/short ratio, liquidation levels, exchange flows |
 | Sentiment | 10-15% | RSS + Social | News sentiment from 12+ sources, keyword scoring, source credibility weighting |
-| ML Predictions | 35% | XGBoost + Transformer | Ensemble prediction with confidence, regime-adjusted |
+| ML Predictions | 35% | XGBoost + Transformer | Ensemble prediction with confidence, regime adjusted |
 
 The composer combines all layers with dynamic weighting and outputs:
 
@@ -119,8 +119,8 @@ The composer combines all layers with dynamic weighting and outputs:
 
 | Provider | Data Type | Key Metrics | Pricing |
 |----------|-----------|-------------|---------|
-| **Glassnode** | On-chain | NUPL, SOPR, exchange flows, HODL waves, MVRV Z-Score, Puell Multiple, Reserve Risk | $29-799/mo |
-| **Santiment** | Social + On-chain | Social volume, dev activity, whale tx, token age, MVRV | $49-250/mo |
+| **Glassnode** | On chain | NUPL, SOPR, exchange flows, HODL waves, MVRV Z Score, Puell Multiple, Reserve Risk | $29-799/mo |
+| **Santiment** | Social + On chain | Social volume, dev activity, whale tx, token age, MVRV | $49-250/mo |
 | **CryptoQuant** | Exchange analytics | Exchange reserve, inflow/outflow, miner flows, SSR, leverage ratio | $29-799/mo |
 | **Nansen** | Smart money | Wallet labels, smart money flow, token god mode, bridge flow | $100-2500/mo |
 | **Kaiko** | Institutional market data | Order book depth, VWAP, slippage, tick data, cross-exchange spread | Custom |
@@ -174,13 +174,13 @@ All providers are configured in `config.yaml`. The aggregator fetches from all e
 - Portfolio simulation with Cholesky decomposition for correlated assets
 - Stress testing at 2x, 3x, 5x volatility multipliers
 
-### Walk-Forward Optimization
+### Walk Forward Optimization
 - Anchored and rolling window modes
 - Per-window metrics: Sharpe, Sortino, Calmar, max drawdown, win rate, profit factor
 - Statistical significance testing (t-test on out-of-sample returns)
 - Overfitting detection (in-sample vs out-of-sample ratio exceeding 2x)
 
-### Meta-Ensemble
+### Meta Ensemble
 - Stacking: XGBoost + Transformer + RL + HMM outputs combined
 - Dynamic weight adjustment via EMA of recent accuracy
 - Platt scaling for confidence calibration
@@ -289,7 +289,7 @@ mefai-signal-engine/
       composer.py                # 5-layer signal combiner
       technical.py               # Technical analysis scoring
       correlation.py             # Cross-asset correlation analysis
-      onchain.py                 # On-chain metrics scoring
+      onchain.py                 # On chain metrics scoring
       sentiment.py               # RSS feed sentiment analysis
     pipeline/                    # Data Pipeline
       ingestion.py               # Multi-source data fetcher
@@ -297,8 +297,8 @@ mefai-signal-engine/
       scheduler.py               # APScheduler task runner
     providers/                   # Data Providers (12 premium + 3 free)
       base.py                    # Base class (rate limit, cache, retry)
-      glassnode.py               # On-chain analytics
-      santiment.py               # Social + on-chain (GraphQL)
+      glassnode.py               # On chain analytics
+      santiment.py               # Social + on chain (GraphQL)
       cryptoquant.py             # Exchange analytics
       nansen.py                  # Smart money tracking
       kaiko.py                   # Institutional market data
