@@ -1,5 +1,8 @@
 # Mefai Signal Engine
 
+[![CI](https://github.com/mefai-dev/mefai-signal-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/mefai-dev/mefai-signal-engine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
+
 A production-grade trading signal engine that combines machine learning, on-chain analytics, and multi-source data fusion to generate actionable trading signals for cryptocurrency markets.
 
 ---
