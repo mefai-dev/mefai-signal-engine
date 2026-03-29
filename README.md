@@ -66,7 +66,7 @@ The engine is built on three pillars of intelligence, each contributing to the f
 
 ## Pillar 1: XGBoost Ensemble Engine
 
-Three specialized gradient-boosted tree models, each tuned for a different market segment:
+Three specialized gradient boosted tree models, each tuned for a different market segment:
 
 | Model | Symbols | Estimators | Movement Threshold | Key Features |
 |-------|---------|------------|-------------------|--------------|
