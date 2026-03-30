@@ -364,3 +364,23 @@ class RegimeDetector:
                 )
 
         return adjustment
+
+
+def classify_volatility_regime(returns, window: int = 20):
+    """Classify current market volatility regime.
+
+    Returns: 'low', 'normal', or 'high' based on
+    rolling standard deviation percentile rank.
+    """
+    import numpy as np
+    arr = np.array(returns)
+    if len(arr) < window * 2:
+        return "normal"
+    current_vol = np.std(arr[-window:])
+    historical_vols = [np.std(arr[i:i+window]) for i in range(len(arr) - window)]
+    percentile = sum(1 for v in historical_vols if v < current_vol) / len(historical_vols)
+    if percentile < 0.25:
+        return "low"
+    elif percentile > 0.75:
+        return "high"
+    return "normal"
